@@ -40,7 +40,7 @@
  *   - dot (paquete: graphviz)
  *
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
- * @version 2014-06-19
+ * @version 2014-06-24
  */
 
 // string para el gráfico dot
@@ -162,7 +162,7 @@ function snmp_bgp_get_routing_table($host, $community = 'public')
  * @param data Arreglo con índice AS y valor tabla de rutas de cada looking glass server
  * @return Código dot del grafo generado para el mapa
  * @author Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
- * @version 2014-06-19
+ * @version 2014-06-24
  */
 function bgp_generate_map($data)
 {
@@ -192,13 +192,8 @@ function bgp_generate_map($data)
             // si hay al menos un AS entonces la red estará conectada al último en el PATH
             else {
                 echo sprintf (DOT_REMOTE_NETWORK, $r['as_path'][$n_as-1], $r['network'], $r['mask']);
-            }
-            // si existe solo un AS está conectado al AS local
-            if ($n_as==1) {
+                // agregar conexiones entre AS
                 echo sprintf (DOT_AS_TO_AS, $local_as, $r['as_path'][0]);
-            }
-            // si existen al menos 2 AS entonces se debe generar la ruta de AS
-            else if ($n_as>1) {
                 for ($i=0; $i<$n_as-1; $i++) {
                     echo sprintf (DOT_AS_TO_AS, $r['as_path'][$i], $r['as_path'][$i+1]);
                 }
