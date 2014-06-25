@@ -166,6 +166,7 @@ function snmp_bgp_get_routing_table($host, $community = 'public')
  */
 function bgp_generate_map($data)
 {
+    $conexiones = [];
     // "trampa" para no marcar AS de LGS como remotos
     $remote_ass = array_keys($data);
     // iniciar código dot
@@ -193,9 +194,15 @@ function bgp_generate_map($data)
             else {
                 echo sprintf (DOT_REMOTE_NETWORK, $r['as_path'][$n_as-1], $r['network'], $r['mask']);
                 // agregar conexiones entre AS
-                echo sprintf (DOT_AS_TO_AS, $local_as, $r['as_path'][0]);
+                if (!in_array([$local_as, $r['as_path'][0]], $conexiones) && !in_array([$r['as_path'][0], $local_as], $conexiones)) {
+                    echo sprintf (DOT_AS_TO_AS, $local_as, $r['as_path'][0]);
+                    $conexiones[] = [$local_as, $r['as_path'][0]];
+                }
                 for ($i=0; $i<$n_as-1; $i++) {
-                    echo sprintf (DOT_AS_TO_AS, $r['as_path'][$i], $r['as_path'][$i+1]);
+                    if (!in_array([$r['as_path'][$i], $r['as_path'][$i+1]], $conexiones) && !in_array([$r['as_path'][$i+1], $r['as_path'][$i]], $conexiones)) {
+                        echo sprintf (DOT_AS_TO_AS, $r['as_path'][$i], $r['as_path'][$i+1]);
+                        $conexiones[] = [$r['as_path'][$i], $r['as_path'][$i+1]];
+                    }
                 }
             }
         }
