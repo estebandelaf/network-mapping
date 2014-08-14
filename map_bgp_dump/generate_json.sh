@@ -67,8 +67,10 @@ for FILE in $FILES; do
             if(substr($0,0,1)=="*") {
                 if(NF>2)
                     print $0;
-                else
-                    line=substr($0,0,length($0)-1);
+                else {
+                    gsub("\r", "");
+                    line = $0;
+                }
             } else
                 print line " " $0;
         }' \
