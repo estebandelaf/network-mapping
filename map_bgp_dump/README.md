@@ -41,7 +41,7 @@ primera es parseando solo un dump (un archivo *.txt*):
 
 O bien parseando todos los archivos *.txt* de un directorio:
 
-	$ ./generate_json.sh examples/nac/entel.txt
+	$ ./generate_json.sh examples/nac
 
 ### Generar grafo (código dot y png)
 
