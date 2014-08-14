@@ -29,7 +29,7 @@
  * BGP utilizando los caminos entre un sistema autónomo local y redes remotas.
  *
  * Modo de uso:
- *   $ ./map_bgp_snmp.php LOCAL_AS JSON_FILE
+ *   $ ./map_bgp_json.php LOCAL_AS JSON_FILE
  *
  * Requiere:
  *   - dot (paquete: graphviz)
