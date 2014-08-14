@@ -2,7 +2,7 @@
 <?php
 
 /**
- * Map BGP SNMP
+ * Map BGP JSON
  * Copyright (C) 2014 Esteban De La Fuente Rubio, DeLaF (esteban[at]delaf.cl)
  *
  * Este programa es software libre: usted puede redistribuirlo y/o modificarlo
