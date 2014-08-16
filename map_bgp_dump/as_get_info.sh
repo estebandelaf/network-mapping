@@ -50,9 +50,9 @@ bgp_as_get_info () {
         | egrep -v -e '^ #|^ %|^[[:space:]]*$' > $TMP
     recode ISO-8859-15..UTF8 $TMP
     # obtener propietario
-    OWNER=$(whois_get_data "`egrep -i "^ owner:|^ OrgName:|^ descr:" $TMP | head -1`")
+    OWNER=$(whois_get_data "`egrep -i '^ owner:|^ OrgName:|^ descr:' $TMP | head -1`")
     # obtener país
-    COUNTRY=$(whois_get_data "`egrep -i "^ Country:" $TMP | head -1`")
+    COUNTRY=$(whois_get_data "`egrep -i '^ Country:' $TMP | head -1`")
     echo -n "$OWNER;$COUNTRY"
     rm -f $TMP
 }
